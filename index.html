@@ -37,8 +37,11 @@
             </h1>
             
             <div class="w-full flex-1 flex flex-col gap-4 justify-center relative z-10">
-                <button onclick="navigate('battle-screen')" class="w-full py-6 bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-2xl rounded-2xl shadow-[0_8px_0_#7f1d1d] active:shadow-[0_0px_0_#7f1d1d] active:translate-y-2 transition-all flex justify-center items-center gap-2">
+                <button onclick="navigate('battle-screen')" class="w-full py-6 bg-gradient-to-r from-red-600 to-orange-600 text-white font-black text-2xl rounded-2xl shadow-[0_8px_0_#7f1d1d] active:shadow-[0_0px_0_#7f1d1d] active:translate-y-2 transition-all flex justify-center items-center gap-2 skew-x-[-6deg] hover:skew-x-[-10deg]">
                     <i data-lucide="swords" class="w-8 h-8"></i> PLAY ARENA
+                </button>
+                <button onclick="navigate('summon-screen')" class="w-full py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xl rounded-xl shadow-[0_6px_0_#500724] active:shadow-none active:translate-y-1 transition-all flex justify-center items-center gap-2 skew-x-[-6deg]">
+                    <i data-lucide="zap"></i> GIGA SUMMON
                 </button>
                 <button onclick="navigate('shop-screen')" class="w-full py-4 bg-gray-800 border-2 border-pink-500 text-pink-50 md:text-xl font-bold rounded-xl shadow-[0_4px_0_#831843] active:shadow-none active:translate-y-1 transition-all flex justify-center items-center gap-2">
                     <i data-lucide="shopping-cart"></i> GIGA SHOP
@@ -56,7 +59,32 @@
             </div>
         </div>
 
-        <!-- Summon Screen Removed -->
+        <!-- Summon Screen -->
+        <div id="summon-screen" class="screen hidden absolute inset-0 flex flex-col bg-gray-900 pt-20 pb-4 px-4 overflow-hidden">
+            <div class="flex-1 flex flex-col items-center justify-center relative">
+                <!-- Summon Ring/Pedestal Visual -->
+                <div class="absolute w-64 h-64 border-4 border-dashed border-pink-500/30 rounded-full animate-spin-slow"></div>
+                
+                <div id="spawn-image-container" class="absolute inset-0 flex items-center justify-center opacity-0 scale-50 transition-all duration-500">
+                    <img id="spawn-image" src="" class="w-64 h-64 object-contain">
+                </div>
+
+                <div class="relative z-10 text-center mt-64">
+                    <h2 id="spawn-name" class="text-3xl font-black text-pink-500 mb-1">SUMMONING...</h2>
+                    <div id="spawn-rarity" class="text-xl font-black font-meme tracking-widest opacity-0">COMMON</div>
+                    <div id="spawn-coins" class="text-yellow-400 font-bold text-xl mt-2 transform translate-y-4 opacity-0 transition-all duration-300">+0 🪙</div>
+                </div>
+            </div>
+
+            <div class="p-4 mt-auto">
+                <button onclick="doSummon()" class="w-full py-5 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-2xl rounded-xl shadow-[0_6px_0_#500724] active:shadow-none active:translate-y-2 transition-all flex items-center justify-center gap-3 skew-x-[-6deg]">
+                    <span class="flex flex-col items-center leading-none">
+                        <span>GIGA SUMMON</span>
+                        <span class="text-xs opacity-80 mt-1">COST: 50 🪙</span>
+                    </span>
+                </button>
+            </div>
+        </div>
 
         <!-- Collection Screen -->
         <div id="collection-screen" class="screen hidden absolute inset-0 flex flex-col bg-gray-900 pt-20 pb-4 px-4 overflow-hidden">
@@ -143,14 +171,18 @@
                 
                 <p class="text-sm text-gray-400 mb-2 text-center">Select your Fighter!</p>
                 
-                <!-- Single Selection Slot -->
-                <div id="slot-0" class="w-32 h-32 bg-gray-800 border-2 border-red-500 rounded-2xl flex items-center justify-center flex-col shadow-[0_0_20px_#ef4444_inset] mb-6 relative overflow-hidden">
-                    <i data-lucide="user" class="text-gray-500 mb-1 w-8 h-8"></i><span class="text-xs text-gray-500 font-bold">SELECT</span>
+                <!-- Single Selection Slot (FIGHTER CARD style) -->
+                <div id="slot-0" class="w-48 h-64 bg-gray-950 border-4 border-red-600 rounded-lg flex items-center justify-center flex-col shadow-[0_0_30px_rgba(220,38,38,0.3)] mb-6 relative overflow-hidden FIGHT-SLANT">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                    <i data-lucide="user" class="text-gray-700 w-16 h-16 z-0"></i>
+                    <div class="absolute bottom-4 left-0 w-full text-center z-20">
+                        <span class="text-sm text-gray-400 font-black tracking-widest uppercase">SELECT FIGHTER</span>
+                    </div>
                 </div>
 
-                <div class="flex-1 w-full bg-gray-950 rounded-t-2xl p-4 overflow-y-auto no-scrollbar border-t-2 border-red-900 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] max-h-64">
-                    <h3 class="font-bold text-gray-400 text-sm mb-3 text-center">YOUR ROSTER</h3>
-                    <div id="battle-roster-grid" class="grid grid-cols-4 gap-2">
+                <div class="flex-1 w-full bg-gray-900/50 rounded-t-3xl p-4 overflow-y-auto no-scrollbar border-t-4 border-red-600 shadow-[0_-15px_30px_rgba(0,0,0,0.8)] max-h-80 FIGHT-SLANT-REV">
+                    <h3 class="font-black text-red-500 text-sm mb-4 text-center tracking-widest uppercase italic">--- YOUR ROSTER ---</h3>
+                    <div id="battle-roster-grid" class="grid grid-cols-4 gap-3">
                         <!-- Populated by JS -->
                     </div>
                 </div>

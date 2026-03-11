@@ -64,7 +64,7 @@ let isSummoning = false;
 let totalWeight = 0;
 
 let state = {
-    coins: 0,
+    coins: 200, // STARTING COINS FOR NEW PLAYERS
     totalSummons: 0,
     inventory: {}, // charId: count
     soundOn: true,
@@ -137,10 +137,22 @@ function renderBattleSetup() {
         const char = CHARACTERS.find(c => c.id === battleState.selectedChar);
         const charData = RARITIES[char.rarity];
         const imgUrl = getImageUrl(char.name, charData.name);
-        slotEl.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover p-2">`;
+        slotEl.innerHTML = `
+            <img src="${imgUrl}" class="w-full h-full object-cover z-0">
+            <div class="absolute bottom-4 left-0 w-full text-center z-20">
+                <span class="text-xl font-black text-white drop-shadow-[0_2px_4px_#000] uppercase italic">${char.name}</span>
+            </div>
+            <div class="absolute top-4 right-4 bg-red-600 px-3 py-1 text-xs font-black text-white FIGHT-SLANT z-20">READY</div>
+        `;
         document.getElementById('btn-start-battle').classList.remove('opacity-50', 'pointer-events-none');
     } else {
-        slotEl.innerHTML = `<i data-lucide="user" class="text-gray-500 mb-1 w-8 h-8"></i><span class="text-xs text-gray-500 font-bold">SELECT</span>`;
+        slotEl.innerHTML = `
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+            <i data-lucide="user" class="text-gray-700 w-16 h-16 z-0"></i>
+            <div class="absolute bottom-4 left-0 w-full text-center z-20">
+                <span class="text-sm text-gray-400 font-black tracking-widest uppercase">SELECT FIGHTER</span>
+            </div>
+        `;
         document.getElementById('btn-start-battle').classList.add('opacity-50', 'pointer-events-none');
     }
     
@@ -320,8 +332,16 @@ function getImageUrl(charName, rarityName) {
 // Interacting
 async function doSummon() {
     if (isSummoning) return;
-    isSummoning = true;
+    const SUMMON_COST = 50;
+    if (state.coins < SUMMON_COST) {
+        speak("Not enough coins, bro", "Common");
+        return;
+    }
     
+    isSummoning = true;
+    state.coins -= SUMMON_COST;
+    updateTopbar();
+
     if (audioCtx.state === 'suspended') audioCtx.resume();
     
     const uiImgCont = document.getElementById('spawn-image-container');
@@ -624,6 +644,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saved) {
         try {
             state = { ...state, ...JSON.parse(saved) };
+            // Ensure coins for existing players if they were at 0
+            if (state.coins === 0 && Object.keys(state.inventory).length === 0) state.coins = 200;
             // Add any missing upgrades manually due to backwards compatibility
             if (state.upgrades === undefined) state.upgrades = { luck: 0, coins: 0 };
             if (state.battleStage === undefined) state.battleStage = 1;

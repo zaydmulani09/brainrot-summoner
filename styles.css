@@ -146,3 +146,58 @@ body {
 .animate-take-damage {
     animation: take-damage 0.4s ease-out;
 }
+/* Fighting Game Aesthetic */
+.FIGHT-SLANT {
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+}
+.FIGHT-SLANT-REV {
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+}
+
+.metal-border {
+    border: 3px solid transparent;
+    background: linear-gradient(#111, #111) padding-box,
+                linear-gradient(45deg, #444, #fff, #444) border-box;
+}
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
+/* Character Card Gloss */
+.char-card-glow {
+    position: relative;
+    overflow: hidden;
+}
+.char-card-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,255,255,0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: sweep 3s infinite;
+}
+
+@keyframes sweep {
+    0% { transform: translate(-100%, -100%) rotate(45deg); }
+    100% { transform: translate(100%, 100%) rotate(45deg); }
+}
+
+/* Override Rarity Text for Impact */
+[class*="text-"] {
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    font-style: italic;
+}
