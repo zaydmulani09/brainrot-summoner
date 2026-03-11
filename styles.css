@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #0c0812; /* Very dark background */
+}
+
+/* Typography styles matching the Brainrot Dash theme */
+.font-meme {
+    font-family: 'Black Ops One', system-ui, sans-serif;
+    text-transform: uppercase;
+}
+.font-inter {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Animations */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.animate-shake {
+    animation: shake 0.5s infinite;
+}
+.animate-shake-hard {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { filter: brightness(1) invert(0); }
+    50% { filter: brightness(2) invert(1); }
+}
+.animate-flash {
+    animation: flash 0.15s infinite;
+}
+
+@keyframes glitch {
+    0% { clip-path: inset(10% 0 10% 0); transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+    20% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); filter: hue-rotate(-90deg); }
+    40% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 2px); filter: hue-rotate(180deg); }
+    60% { clip-path: inset(50% 0 30% 0); transform: translate(2px, -2px); filter: saturate(3); }
+    80% { clip-path: inset(5% 0 80% 0); transform: translate(-2px, 2px); filter: invert(1); }
+    100% { clip-path: inset(20% 0 20% 0); transform: translate(2px, -2px); filter: hue-rotate(0deg); }
+}
+.animate-glitch {
+    animation: glitch 0.2s infinite;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Rarity Text Colors */
+.text-Common { color: #a1a1aa; } /* zinc-400 */
+.text-Rare { color: #3b82f6; text-shadow: 0 0 10px rgba(59,130,246,0.8); } /* blue-500 */
+.text-Epic { color: #a855f7; text-shadow: 0 0 15px rgba(168,85,247,0.8); } /* purple-500 */
+.text-Legendary { color: #eab308; text-shadow: 0 0 20px rgba(234,179,8,0.9); } /* yellow-500 */
+.text-Mythic { color: #ef4444; text-shadow: 0 0 25px rgba(239,68,68,1); } /* red-500 */
+.text-Secret { color: #14b8a6; text-shadow: 0 0 30px rgba(20,184,166,1); } /* teal-500 */
+.text-Brainrot { color: #ec4899; text-shadow: 0 0 35px rgba(236,72,153,1); } /* pink-500 */
+.text-Forbidden { color: #000000; text-shadow: 0 0 30px #dc2626, 0 0 10px #dc2626; color: #fff; } /* black/red */
+.text-Sahur { color: #ffffff; text-shadow: 0 0 20px #fff, 0 0 40px #f0f, 0 0 60px #0ff; } /* white/rainbow */
+
+/* Rarity Border Colors */
+.border-Common { border-color: #3f3f46; }
+.border-Rare { border-color: #3b82f6; }
+.border-Epic { border-color: #a855f7; }
+.border-Legendary { border-color: #eab308; }
+.border-Mythic { border-color: #ef4444; }
+.border-Secret { border-color: #14b8a6; }
+.border-Brainrot { border-color: #ec4899; }
+.border-Forbidden { border-color: #dc2626; }
+.border-Sahur { border-color: #ffffff; }
+
+/* Glow effects */
+.glow-Rare { box-shadow: 0 0 15px rgba(59,130,246,0.3); }
+.glow-Epic { box-shadow: 0 0 25px rgba(168,85,247,0.4); }
+.glow-Legendary { box-shadow: 0 0 35px rgba(234,179,8,0.5); }
+.glow-Mythic { box-shadow: 0 0 45px rgba(239,68,68,0.6); }
+.glow-Secret { box-shadow: 0 0 50px rgba(20,184,166,0.7); }
+.glow-Brainrot { box-shadow: 0 0 60px rgba(236,72,153,0.8); }
+.glow-Forbidden { box-shadow: 0 0 70px rgba(220,38,38,1); }
+.glow-Sahur { box-shadow: 0 0 100px rgba(255,255,255,1); }
+
+/* Utility for hiding scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Battle Animations */
+@keyframes attack-player {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    20% { transform: translate(-10px, 10px) scale(0.9) rotate(-10deg); }
+    40% { transform: translate(30px, -50px) scale(1.2) rotate(15deg); }
+    60% { transform: translate(30px, -50px) scale(1.2) rotate(15deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+.animate-attack-player {
+    animation: attack-player 0.5s ease-out;
+}
+
+@keyframes attack-enemy {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    20% { transform: translate(10px, -10px) scale(0.9) rotate(10deg); }
+    40% { transform: translate(-30px, 50px) scale(1.2) rotate(-15deg); }
+    60% { transform: translate(-30px, 50px) scale(1.2) rotate(-15deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+.animate-attack-enemy {
+    animation: attack-enemy 0.5s ease-out;
+}
+
+@keyframes damage {
+    0% { transform: translateY(0) scale(0.5); opacity: 0; text-shadow: 0 0 10px red; color: white;}
+    20% { transform: translateY(-20px) scale(1.5); opacity: 1; text-shadow: 0 0 20px yellow; color: white;}
+    40% { transform: translateY(-30px) scale(1.0); opacity: 1; text-shadow: 0 0 15px red; color: white;}
+    100% { transform: translateY(-60px) scale(0.8); opacity: 0; text-shadow: 0 0 30px darkred; color: red;}
+}
+.animate-damage {
+    animation: damage 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes take-damage {
+    0% { filter: brightness(1) sepia(0) saturate(1) hue-rotate(0deg); transform: translateX(0); }
+    25% { filter: brightness(0.5) sepia(1) saturate(10) hue-rotate(-50deg); transform: translateX(-5px); }
+    50% { filter: brightness(2) sepia(1) saturate(10) hue-rotate(-50deg); transform: translateX(5px); }
+    75% { filter: brightness(0.5) sepia(1) saturate(10) hue-rotate(-50deg); transform: translateX(-5px); }
+    100% { filter: brightness(1) sepia(0) saturate(1) hue-rotate(0deg); transform: translateX(0); }
+}
+.animate-take-damage {
+    animation: take-damage 0.4s ease-out;
+}
